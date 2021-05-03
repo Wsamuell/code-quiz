@@ -78,19 +78,21 @@ pullQuestion = () => {
     questionCounter++;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
-    question.innerText = currentQuestion["question"];
-    console.log(question.innerText)
-
+    // question.innerText = currentQuestion["question"];
+    console.log(question.innerText);
+console.log(answerChoices)
 
     answerChoices.forEach( choice => {
-        const number = choice.dataset["number"];
-        choice.innerText = currentQuestion["choice" + number];
-        console.log(choice.innerText)
+       document.getElementById("choice-" + number)
+
+
+        // const number = choice.dataset["number"];
+        // console.log(choice.innerText)
 
     });
 
-    availableQuestions.splice(questionIndex, 1);
-    correctAnswer = true;
+    // availableQuestions.splice(questionIndex, 1);
+    // correctAnswer = true;
 
 };
 
