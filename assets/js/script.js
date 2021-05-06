@@ -4,7 +4,9 @@ const intro = document.getElementById("intro");
 const questionBox = document.getElementById("quiz-question");
 const question = document.getElementById("question");
 const answerChoices = document.getElementById("answer-choices");
+const questionButtons = document.getElementsByClassName('q-button')
 console.log(answerChoices);
+
 
 let currentQuestion = {};
 let correctAnswer = false;
@@ -68,32 +70,38 @@ const clearScores = document.getElementById("clear-scores");
 
 
 letsBegin = () => {
+    console.log('lets begin is running')
     questionCounter = 0;
     score = 0;
-    availableQuestions = [...questions]
-    console.log(availableQuestions);
+    availableQuestions = [...questions];
     pullQuestion();
 };
 pullQuestion = () => {
     questionCounter++;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
-    // question.innerText = currentQuestion["question"];
-    console.log(question.innerText);
-console.log(answerChoices)
+    question.innerText = currentQuestion["question"];
+    document.getElementById('choice-1').innerText = currentQuestion.choice1
+    document.getElementById('choice-2').innerText = currentQuestion.choice2
+    document.getElementById('choice-3').innerText = currentQuestion.choice3
+    document.getElementById('choice-4').innerText = currentQuestion.choice4
 
-    answerChoices.forEach( choice => {
-       document.getElementById("choice-" + number)
 
+    // questionButtons.forEach(function(choice, i) {
+    //    // document.getElementById("choice-" + number)
+    //    console.log('in the function')
+    //     //this.innerText = currentQuestion[(choice + i)]
+    //     console.log(currentQuestion)
+    //     console.log('current question',currentQuestion[(choice + '-' + i)])
 
-        // const number = choice.dataset["number"];
-        // console.log(choice.innerText)
+    //     // const number = choice.dataset["number"];
+    //     // console.log(choice.innerText)
 
-    });
+    // });
 
     // availableQuestions.splice(questionIndex, 1);
     // correctAnswer = true;
 
 };
+startBox.onclick = letsBegin;
 
-letsBegin();
