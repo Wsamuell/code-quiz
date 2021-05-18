@@ -1,11 +1,13 @@
 
 const startBox = document.getElementById("lets-begin");
+const timer = document.getElementById('timeLeft')
 const intro = document.getElementById("intro");
-const questionBox = document.getElementById("quiz-question");
+const questionBox = document.getElementById("quiz-questions");
 const question = document.getElementById("question");
 const answerChoices = document.getElementById("answer-choices");
 const questionButtons = document.getElementsByClassName('q-button')
-console.log(answerChoices);
+
+    
 
 
 let currentQuestion = {};
@@ -13,6 +15,8 @@ let correctAnswer = false;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
+let timeLeft = 5;
+let timerBegins;
 
 let questions = [
     {
@@ -60,21 +64,36 @@ let questions = [
 // constants 
 const correctAnswerPoints = 10;
 const totalQuestions = 5;
-
+const timeQuiz = document.getElementById("#timeLeft")
 const viewHighScores = document.getElementById("view-scores");
 const saveScores = document.getElementById("save-scores");
 const restartGame = document.getElementById("restart-game");
 const clearScores = document.getElementById("clear-scores");
 
+// timer function for quiz
+
+function totalTIme(){
+timerBegins = setInterval(function(){
+    timeLeft--;
+    timer.textContent = timeLeft;
+
+    if(timeLeft === 0){
+        clearInterval(timerBegins);
+    }
+},1000)
+}
+
+
+
 // if the Lets begin button is clicked then 
-
-
 letsBegin = () => {
     console.log('lets begin is running')
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
+
     pullQuestion();
+    totalTIme();
 };
 pullQuestion = () => {
     questionCounter++;
@@ -85,23 +104,9 @@ pullQuestion = () => {
     document.getElementById('choice-2').innerText = currentQuestion.choice2
     document.getElementById('choice-3').innerText = currentQuestion.choice3
     document.getElementById('choice-4').innerText = currentQuestion.choice4
-
-
-    // questionButtons.forEach(function(choice, i) {
-    //    // document.getElementById("choice-" + number)
-    //    console.log('in the function')
-    //     //this.innerText = currentQuestion[(choice + i)]
-    //     console.log(currentQuestion)
-    //     console.log('current question',currentQuestion[(choice + '-' + i)])
-
-    //     // const number = choice.dataset["number"];
-    //     // console.log(choice.innerText)
-
-    // });
-
-    // availableQuestions.splice(questionIndex, 1);
-    // correctAnswer = true;
-
 };
+
+
+
 startBox.onclick = letsBegin;
 
