@@ -4,7 +4,10 @@ const timer = document.getElementById('timeLeft')
 const intro = document.getElementById("intro");
 const questionBox = document.getElementById("quiz-questions");
 const question = document.getElementById("question");
-const answerChoices = document.getElementById("answer-choices");
+const choice1 = document.getElementById("choice-1");
+const choice2 = document.getElementById("choice-2");
+const choice3 = document.getElementById("choice-3");
+const choice4 = document.getElementById("choice-4");
 const questionButtons = document.getElementsByClassName('q-button')
 
 
@@ -87,7 +90,6 @@ function totalTIme() {
 
 // if the Lets begin button is clicked then 
 letsBegin = () => {
-    console.log('lets begin is running')
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
@@ -96,22 +98,37 @@ letsBegin = () => {
     totalTIme();
     const questionContainer = document.getElementById("quiz-questions");
     questionContainer.classList.remove("hide");
+    console.log(checkAnswer)
 };
 pullQuestion = () => {
     questionCounter++;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
+    // displayed question
     question.innerText = currentQuestion["question"];
-    document.getElementById('choice-1').innerText = currentQuestion.choice1
-    document.getElementById('choice-2').innerText = currentQuestion.choice2
-    document.getElementById('choice-3').innerText = currentQuestion.choice3
-    document.getElementById('choice-4').innerText = currentQuestion.choice4
-    };
+    function buttonchoices() {
+        document.getElementById('choice-1').innerText = currentQuestion.choice1
+        document.getElementById('choice-2').innerText = currentQuestion.choice2
+        document.getElementById('choice-3').innerText = currentQuestion.choice3
+        document.getElementById('choice-4').innerText = currentQuestion.choice4
+    }
+    buttonchoices;
+
+    function checkAnswer() {
+        for (var i = 0; i < pullQuestion.length; i++) {
+    
+            right = questions[currentQuestion].answer;
+    
+        }
+    }
+    checkAnswer;
+    console.log(checkAnswer)
+
+};
+
+
 
 // check answer function and move to next question
-// for (var i = 0; i < questionIndex.length; i++){
-//     var buttonSelect = confirm 
-// }
 
 
 // quiz timer done/ quiz is over
