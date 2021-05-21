@@ -7,7 +7,7 @@ const question = document.getElementById("question");
 const answerChoices = document.getElementById("answer-choices");
 const questionButtons = document.getElementsByClassName('q-button')
 
-    
+
 
 
 let currentQuestion = {};
@@ -72,15 +72,15 @@ const clearScores = document.getElementById("clear-scores");
 
 // timer function for quiz
 
-function totalTIme(){
-timerBegins = setInterval(function(){
-    timeLeft--;
-    timer.textContent = timeLeft;
+function totalTIme() {
+    timerBegins = setInterval(function () {
+        timeLeft--;
+        timer.textContent = timeLeft;
 
-    if(timeLeft === 0){
-        clearInterval(timerBegins);
-    }
-},1000)
+        if (timeLeft === 0) {
+            clearInterval(timerBegins);
+        }
+    }, 1000)
 }
 
 
@@ -94,6 +94,8 @@ letsBegin = () => {
 
     pullQuestion();
     totalTIme();
+    const questionContainer = document.getElementById("quiz-questions");
+    questionContainer.classList.remove("hide");
 };
 pullQuestion = () => {
     questionCounter++;
@@ -104,9 +106,21 @@ pullQuestion = () => {
     document.getElementById('choice-2').innerText = currentQuestion.choice2
     document.getElementById('choice-3').innerText = currentQuestion.choice3
     document.getElementById('choice-4').innerText = currentQuestion.choice4
-};
+    };
+
+// check answer function and move to next question
+// for (var i = 0; i < questionIndex.length; i++){
+//     var buttonSelect = confirm 
+// }
+
+
+// quiz timer done/ quiz is over
+
+// display high score and also reset quiz
+
 
 
 
 startBox.onclick = letsBegin;
+
 
