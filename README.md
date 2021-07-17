@@ -1,8 +1,13 @@
-# code-quiz
+# Code-Quiz
 
-##Description
+## Description
 Timed coding quiz with multiple-choice questions. This app runs in the browser, and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. 
 
+## Deployed link
+[Code Quiz](https://wsamuell.github.io/code-quiz/)
+
+## Screenshots
+![Code Quiz](./assets/img/sc-1.png)
 
 ###User Story
 * AS A coding boot camp student
