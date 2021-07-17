@@ -115,6 +115,7 @@ function clearScores() {
 
 function restart() {
     clearInterval(timer);
+    currentQuestion = -1;
 
     document.getElementById("timeLeft").innerHTML = timeLeft;
 
@@ -145,12 +146,12 @@ document.addEventListener('click', function(event) {
     }
 })
 function correctAnswer() {
-    timeLeft += 7;
+    score +=10;
     nextQuestion();
 }
 
 function wrongAnswer() {
-    timeLeft -= 12;
+    timeLeft -= 10;
     nextQuestion();
 }
 
