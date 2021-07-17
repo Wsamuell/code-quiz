@@ -1,140 +1,156 @@
-
-const startBox = document.getElementById("lets-begin");
-const timer = document.getElementById('timeLeft')
-const intro = document.getElementById("intro");
-const questionBox = document.getElementById("quiz-questions");
-const question = document.getElementById("question");
-const choice1 = document.getElementById("choice-1");
-const choice2 = document.getElementById("choice-2");
-const choice3 = document.getElementById("choice-3");
-const choice4 = document.getElementById("choice-4");
-const questionButtons = document.getElementsByClassName('q-button')
-
-
-
-
-let currentQuestion = {};
-let correctAnswer = false;
-let score = 0;
-let questionCounter = 0;
-let availableQuestions = [];
-let timeLeft = 5;
-let timerBegins;
-
 let questions = [
     {
         question: "Arrays in Javascript can be used to store ____.",
-        choice1: "Numbers and strings",
-        choice2: "Other arrays",
-        choice3: "Booleans",
-        choice4: "All of the above",
-        answer: 4
+        choices: ["Numbers and strings", "Other arrays", "Booleans", "All of the above"],
+        answer: "All of the above"
     },
     {
         question: "What is the HTML tag under which one can write the JavaScript code?",
-        choice1: "<javascript",
-        choice2: "<scripted>",
-        choice3: "<script>",
-        choice4: "<js>",
-        answer: 3
+        choices: ["<javascript", "<scripted>", "<script>", "<js>"],
+        answer: "<script>"
     },
     {
         question: "______ tag is an extension to HTML that can enclose any number of JavaScript statements.",
-        choice1: "<SCRIPT>",
-        choice2: "<BODY>",
-        choice3: "<HEAD>",
-        choice4: "<TITLE>",
-        answer: 1
+        choices: ["<SCRIPT>", "<BODY>", "<HEAD>", "<TITLE>"],
+        answer: "<SCRIPT>"
     },
     {
         question: "JavaScript entities start with _______ and end with _________.",
-        choice1: "Semicolon, colon",
-        choice2: "Semicolon, Ampersand",
-        choice3: "Ampersand, colon",
-        choice4: "Ampersand, semicolon",
-        answer: 4
+        choices: ["Semicolon, colon", "Semicolon, Ampersand", "Ampersand, colon", "Ampersand, semicolon"],
+        answer: "Ampersand, semicolon"
     },
     {
         question: "The first index of an array is ____.",
-        choice1: "0",
-        choice2: "1",
-        choice3: "8",
-        choice4: "any",
-        answer: 1
+        choices: ["0", "1", "8", "any"],
+        answer: "0"
     }
 ]
 
-// constants 
-const correctAnswerPoints = 10;
-const totalQuestions = 5;
-const timeQuiz = document.getElementById("#timeLeft")
-const viewHighScores = document.getElementById("view-scores");
-const saveScores = document.getElementById("save-scores");
-const restartGame = document.getElementById("restart-game");
-const clearScores = document.getElementById("clear-scores");
+
+//  variables to be use
+// also why use let instead of variable why are they interchangeable in this case
+let currentQuestion = -1;
+let score = 0;
+let timeLeft = 0;
+let timer;
+
 
 // timer function for quiz
 
-function totalTIme() {
-    timerBegins = setInterval(function () {
-        timeLeft--;
-        timer.textContent = timeLeft;
+function letsBegin() {
 
-        if (timeLeft === 0) {
-            clearInterval(timerBegins);
+    timeLeft = 90
+    document.getElementById('timeLeft').innerHTML = timeLeft;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timeLeft').innerHTML = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endGame();
         }
-    }, 1000)
+    },
+        1000);
+        nextQuestion();
 }
 
+function endGame() {
+    clearInterval(timer);
+
+    var endScript =
+        `
+
+        <div class="container hide" id="recap">
+        <h2>You scored `+ score + ` points!</h2>
+        <form class="">
+            <p>Lets get your score saved !!!
+            <input id="player-name" class="form-control mr-sm-2 ml-sm-4" type="search" placeholder="Enter Your Initials" aria-label="Search">
+                
+            <button onclick="addScore() class="btn btn-outline-success my-2 my-sm-0" type="submit">Save My
+                    Score</button>
+            </p>
+        </form>
+        </div>
+        `;
+    document.getElementById('quiz-body').innerHTML = endScript;
+}
+
+function setScore() {
+    localStorage.setItem('High-Score', score);
+    localStorage.setItem('Player-Name', document.getElementById('player-name').value);
+    getScores();
+}
+
+function getScores() {
+    var showScores = `
+   <h2>`+ localStorage.getItem('Player-Name') + `Your last score was </h2>
+   <h1>` + localStorage.getItem('High-Score') + `</h1><br><br>
+
+   <button id="restart-game" type="button" class="btn btn-success">Restart Game?</button>
+
+    `;
+    document.getElementById('quiz-body').innerHTML = showScores
+}
+
+function clearScores() {
+    localStorage.clear();
+    restart();
+}
+
+function restart() {
+    clearInterval(timer);
+    let currentQuestion = -1;
+    let score = 0;
+    let timeLeft = 0;
+    let timer;
+
+    document.getElementById("timeLeft").innerHTML = timeLeft;
+
+    var newQuiz = `
+    <h4 class="font-weight-bold">Welcome back!! wanna try again?!?!</h4>
+                    <p>
+                        <button onclick="letsBegin" id="restart-game" type="button" class="btn btn-success">Restart Game?</button>
+                        <button id="clear-scores" type="button" class="btn btn-info">Clear All Scores</button>
+                    </p>
+    
+    `
+    document.getElementById('quiz-body').innerHTML = newQuiz;
 
 
-// if the Lets begin button is clicked then 
-letsBegin = () => {
-    questionCounter = 0;
-    score = 0;
-    availableQuestions = [...questions];
+}
 
-    pullQuestion();
-    totalTIme();
-    const questionContainer = document.getElementById("quiz-questions");
-    questionContainer.classList.remove("hide");
-};
-pullQuestion = () => {
-    questionCounter++;
-    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions[questionIndex];
-    // displayed question
-    question.innerText = currentQuestion["question"];
-    function buttonChoices() {
-        console.log(document.getElementById('choice-1'))
-        document.getElementById('choice-1').textContent = currentQuestion.choice1
-        document.getElementById('choice-2').textContent = currentQuestion.choice2
-        document.getElementById('choice-3').innerText = currentQuestion.choice3
-        document.getElementById('choice-4').innerText = currentQuestion.choice4
+function correctAnswer() {
+    timeLeft += 20;
+    nextQuestion();
+}
+
+function wrongAnswer() {
+    timeLeft -= 20;
+    nextQuestion();
+}
+
+function nextQuestion() {
+    currentQuestion++
+    if(currentQuestion > questions.length -1) {
+        endGame();
+        return;
     }
-    buttonChoices();
+    var eachQuestion = `<h2>` + questions[currentQuestion].question `</h2>`
+    for (var optionsLoop = 0; optionsLoop < questions[currentQuestion].choices.length; optionsLoop++) {
+        var optionButton = '<button onclick=\"ANS\">[CHOICE]</button>';
+        optionButton = optionsLoop.replace('[CHOICE]', questions[currentQuestion].choices[optionsLoop]);
+        if(questions[currentQuestion].choices[optionsLoop] == questions[currentQuestion].answer) {
+            optionButton = optionsLoop.replace("[ANS]", "correctAnswer()");
+        } else {
+            optionButton = optionsLoop.replace("[ANS]", "wrongAnswer()");
 
-    function checkAnswer() {
-        for (var i = 0; i < pullQuestion.length; i++) {
-    
-            right = questions[answer];
-    
         }
+        eachQuestion += optionButton
     }
-    checkAnswer();
-    console.log(checkAnswer)
 
-};
-// compare the number in answer choice to answer
+    document.getElementById('quiz-body').innerHTML = eachQuestion;
 
+}
 
-// quiz timer done/ quiz is over
-
-// display high score and also reset quiz
-
-
-
-
-startBox.onclick = letsBegin;
-
+letsBegin();
 
