@@ -72,7 +72,7 @@ function endGame() {
         </form>
         </div>
         `;
-    document.getElementById('quiz-body').innerHTML = endScript;
+    document.getElementsByClassName('quiz-body').innerHTML = endScript;
 }
 
 function setScore() {
@@ -89,7 +89,7 @@ function getScores() {
    <button id="restart-game" type="button" class="btn btn-success">Restart Game?</button>
 
     `;
-    document.getElementById('quiz-body').innerHTML = showScores
+    document.getElementsByClassName('quiz-body').innerHTML = showScores;
 }
 
 function clearScores() {
@@ -102,7 +102,7 @@ function restart() {
     let currentQuestion = -1;
     let score = 0;
     let timeLeft = 0;
-    let timer;
+    let timer = null;
 
     document.getElementById("timeLeft").innerHTML = timeLeft;
 
@@ -114,7 +114,7 @@ function restart() {
                     </p>
     
     `
-    document.getElementById('quiz-body').innerHTML = newQuiz;
+    document.getElementsByClassName('quiz-body').innerHTML = newQuiz;
 
 
 }
@@ -135,22 +135,20 @@ function nextQuestion() {
         endGame();
         return;
     }
-    var eachQuestion = `<h2>` + questions[currentQuestion].question `</h2>`
+    var eachQuestion = "<h2>" + questions[currentQuestion].question + "</h2>"
     for (var optionsLoop = 0; optionsLoop < questions[currentQuestion].choices.length; optionsLoop++) {
-        var optionButton = '<button onclick=\"ANS\">[CHOICE]</button>';
-        optionButton = optionsLoop.replace('[CHOICE]', questions[currentQuestion].choices[optionsLoop]);
+        var optionButton = '<button onclick=\"[ANS]\">[CHOICE]</button>';
+        optionButton = optionButton.replace('[CHOICE]', questions[currentQuestion].choices[optionsLoop]);
         if(questions[currentQuestion].choices[optionsLoop] == questions[currentQuestion].answer) {
-            optionButton = optionsLoop.replace("[ANS]", "correctAnswer()");
+            optionButton = optionButton.replace("[ANS]", "correctAnswer()");
         } else {
-            optionButton = optionsLoop.replace("[ANS]", "wrongAnswer()");
+            optionButton = optionButton.replace("[ANS]", "wrongAnswer()");
 
         }
         eachQuestion += optionButton
     }
 
-    document.getElementById('quiz-body').innerHTML = eachQuestion;
+    document.getElementsByClassName('quiz-body').innerHTML = eachQuestion;
 
 }
-
-letsBegin();
 
