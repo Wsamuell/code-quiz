@@ -146,7 +146,7 @@ document.addEventListener('click', function(event) {
     }
 })
 function correctAnswer() {
-    score +=10;
+    score += 10;
     nextQuestion();
 }
 
