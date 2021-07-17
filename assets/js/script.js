@@ -98,7 +98,6 @@ letsBegin = () => {
     totalTIme();
     const questionContainer = document.getElementById("quiz-questions");
     questionContainer.classList.remove("hide");
-    console.log(checkAnswer)
 };
 pullQuestion = () => {
     questionCounter++;
@@ -106,29 +105,27 @@ pullQuestion = () => {
     currentQuestion = availableQuestions[questionIndex];
     // displayed question
     question.innerText = currentQuestion["question"];
-    function buttonchoices() {
-        document.getElementById('choice-1').innerText = currentQuestion.choice1
-        document.getElementById('choice-2').innerText = currentQuestion.choice2
+    function buttonChoices() {
+        console.log(document.getElementById('choice-1'))
+        document.getElementById('choice-1').textContent = currentQuestion.choice1
+        document.getElementById('choice-2').textContent = currentQuestion.choice2
         document.getElementById('choice-3').innerText = currentQuestion.choice3
         document.getElementById('choice-4').innerText = currentQuestion.choice4
     }
-    buttonchoices;
+    buttonChoices();
 
     function checkAnswer() {
         for (var i = 0; i < pullQuestion.length; i++) {
     
-            right = questions[currentQuestion].answer;
+            right = questions[answer];
     
         }
     }
-    checkAnswer;
+    checkAnswer();
     console.log(checkAnswer)
 
 };
-
-
-
-// check answer function and move to next question
+// compare the number in answer choice to answer
 
 
 // quiz timer done/ quiz is over
